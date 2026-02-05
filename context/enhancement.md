@@ -16,8 +16,14 @@
   - Dashboard Page
     - [x] In Dashboard page, add button to add stock, and redirect to page create daily sold products
     - [x] Show to card daily sold product, with filtered today. Add information like, product name, seller, date, stock, and current sold. Then each card, please add button to trigger incremental of sold of this product today.
+    - [x] Add information 'Total Income Sold', 'Total Income Seller', and 'Profit' each card.
+    - [x] Add alert confirmation when increment sold
   - [x] In label error below input, please style to red color
   - [x] I want url for '/seller/index' => '/seller'
   - [x] I want url for '/product/index' => '/product'
   - [x] I want url for '/daily-sold-product/index' => '/daily-sold-product'
   - [x] I want url for '/site/index' => '/'
+  - [x] Change all wording in views web to Indonesian
+  - Responsive
+    - [x] Add toggle button to show/hide sidebar
+    - [x] Make table in all list page, scrollable horizontal

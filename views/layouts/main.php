@@ -37,7 +37,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         NavBar::begin([
             'brandLabel' => Yii::$app->name,
             'brandUrl' => Yii::$app->homeUrl,
-            'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
+            'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top'],
+            'togglerContent' => '<i class="bi bi-list"></i>',
+            'togglerOptions' => ['id' => 'sidebar-toggle'],
         ]);
 
         NavBar::end();
@@ -52,22 +54,22 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     <div class="position-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <?= Html::a('<i class="bi bi-house-door me-2"></i> Dashboard', ['/site/index'], [
+                                <?= Html::a('<i class="bi bi-house-door me-2"></i> Beranda', ['/site/index'], [
                                     'class' => 'nav-link' . (Yii::$app->controller->id === 'site' ? ' active' : '')
                                 ]) ?>
                             </li>
                             <li class="nav-item">
-                                <?= Html::a('<i class="bi bi-people me-2"></i> Sellers', ['/seller/index'], [
+                                <?= Html::a('<i class="bi bi-people me-2"></i> Penjual', ['/seller/index'], [
                                     'class' => 'nav-link' . (Yii::$app->controller->id === 'seller' ? ' active' : '')
                                 ]) ?>
                             </li>
                             <li class="nav-item">
-                                <?= Html::a('<i class="bi bi-box me-2"></i> Products', ['/product/index'], [
+                                <?= Html::a('<i class="bi bi-box me-2"></i> Produk', ['/product/index'], [
                                     'class' => 'nav-link' . (Yii::$app->controller->id === 'product' ? ' active' : '')
                                 ]) ?>
                             </li>
                             <li class="nav-item">
-                                <?= Html::a('<i class="bi bi-calendar-check me-2"></i> Daily Sold', ['/daily-sold-product/index'], [
+                                <?= Html::a('<i class="bi bi-calendar-check me-2"></i> Penjualan Harian', ['/daily-sold-product/index'], [
                                     'class' => 'nav-link' . (Yii::$app->controller->id === 'daily-sold-product' ? ' active' : '')
                                 ]) ?>
                             </li>
@@ -96,6 +98,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         </div>
     </footer>
 
+    <script>
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('show');
+        });
+    </script>
     <?php $this->endBody() ?>
 </body>
 

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-$this->title = 'Daily Sold Products';
+$this->title = 'Penjualan Harian';
 $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 ?>
 
@@ -11,7 +11,7 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Daily Sold Product', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Penjualan Harian', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -21,25 +21,25 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'product_id',
-                'label' => 'Product',
+                'label' => 'Produk',
                 'value' => function ($model) {
                     return $model->product ? $model->product->name : '-';
                 },
             ],
             [
                 'attribute' => 'seller_id',
-                'label' => 'Seller',
+                'label' => 'Penjual',
                 'value' => function ($model) {
                     return $model->product && $model->product->seller ? $model->product->seller->name : '-';
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'seller_id', $sellers, [
                     'class' => 'form-control',
-                    'prompt' => 'All Seller',
+                    'prompt' => 'Semua Penjual',
                 ]),
             ],
             [
                 'attribute' => 'date',
-                'label' => 'Date',
+                'label' => 'Tanggal',
                 'format' => 'date',
                 'filter' => Html::activeInput('date', $searchModel, 'date', [
                     'class' => 'form-control',
@@ -47,26 +47,26 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
             ],
             [
                 'attribute' => 'stock',
-                'label' => 'Stock',
+                'label' => 'Stok',
             ],
             [
                 'attribute' => 'sold',
-                'label' => 'Sold',
+                'label' => 'Terjual',
             ],
             [
-                'label' => 'Original Price',
+                'label' => 'Harga Asli',
                 'value' => function ($model) {
                     return $model->product ? number_format($model->product->original_price) : '-';
                 },
             ],
             [
-                'label' => 'Sell Price',
+                'label' => 'Harga Jual',
                 'value' => function ($model) {
                     return $model->product ? number_format($model->product->sell_price) : '-';
                 },
             ],
             [
-                'label' => 'Total Income Sold',
+                'label' => 'Total Pendapatan Jual',
                 'value' => function ($model) {
                     if ($model->product) {
                         return number_format($model->product->sell_price * $model->sold);
@@ -75,7 +75,7 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
                 },
             ],
             [
-                'label' => 'Total Income Seller',
+                'label' => 'Total Pendapatan Penjual',
                 'value' => function ($model) {
                     if ($model->product) {
                         return number_format($model->product->original_price * $model->sold);
@@ -85,7 +85,7 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
             ],
             [
                 'attribute' => 'profit',
-                'label' => 'Profit',
+                'label' => 'Keuntungan',
                 'value' => function ($model) {
                     if ($model->product) {
                         $totalIncomeSold = $model->product->sell_price * $model->sold;
@@ -101,16 +101,16 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<i class="bi bi-pencil"></i>', $url, [
-                            'title' => 'Update',
+                            'title' => 'Ubah',
                             'class' => 'btn btn-primary btn-sm',
                         ]);
                     },
                     'delete' => function ($url, $model) {
                         return Html::a('<i class="bi bi-trash"></i>', $url, [
-                            'title' => 'Delete',
+                            'title' => 'Hapus',
                             'class' => 'btn btn-danger btn-sm',
                             'data' => [
-                                'confirm' => 'Are you sure you want to delete this item?',
+                                'confirm' => 'Apakah Anda yakin ingin menghapus item ini?',
                                 'method' => 'post',
                             ],
                         ]);
@@ -125,7 +125,7 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
     ]); ?>
 
     <div class="form-group">
-        <label>Per page:</label>
+        <label>Per halaman:</label>
         <?= Html::dropDownList(
             'per-page',
             Yii::$app->request->get('per-page', 10),

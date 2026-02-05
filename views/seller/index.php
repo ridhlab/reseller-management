@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-$this->title = 'Sellers';
+$this->title = 'Penjual';
 $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 ?>
 
@@ -11,7 +11,7 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Seller', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Penjual', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -21,7 +21,7 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'name',
-                'label' => 'Name',
+                'label' => 'Nama',
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -29,16 +29,16 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<i class="bi bi-pencil"></i>', $url, [
-                            'title' => 'Update',
+                            'title' => 'Ubah',
                             'class' => 'btn btn-primary btn-sm',
                         ]);
                     },
                     'delete' => function ($url, $model) {
                         return Html::a('<i class="bi bi-trash"></i>', $url, [
-                            'title' => 'Delete',
+                            'title' => 'Hapus',
                             'class' => 'btn btn-danger btn-sm',
                             'data' => [
-                                'confirm' => 'Are you sure you want to delete this item?',
+                                'confirm' => 'Apakah Anda yakin ingin menghapus item ini?',
                                 'method' => 'post',
                             ],
                         ]);
@@ -53,7 +53,7 @@ $this->registerJsFile('@web/js/grid-filter.js', ['depends' => [\yii\web\JqueryAs
     ]); ?>
 
     <div class="form-group">
-        <label>Per page:</label>
+        <label>Per halaman:</label>
         <?= Html::dropDownList(
             'per-page',
             Yii::$app->request->get('per-page', 10),

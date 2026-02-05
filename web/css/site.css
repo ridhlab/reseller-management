@@ -131,3 +131,32 @@ a.desc:after {
 .invalid-feedback {
     color: #dc3545;
 }
+
+/* Sidebar toggle in navbar */
+
+@media (max-width: 767.98px) {
+    #sidebar {
+        position: fixed;
+        top: 56px;
+        left: 0;
+        width: 250px;
+        height: calc(100vh - 56px);
+        z-index: 999;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        overflow-y: auto;
+    }
+
+    #sidebar.show {
+        transform: translateX(0);
+    }
+}
+
+/* Table horizontal scroll */
+.grid-view {
+    overflow-x: auto;
+}
+
+.grid-view table {
+    min-width: 800px;
+}

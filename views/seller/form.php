@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = $isEdit ? 'Update Seller: ' . $model->name : 'Create Seller';
+$this->title = $isEdit ? 'Ubah Penjual: ' . $model->name : 'Tambah Penjual';
 ?>
 
 <div class="seller-form">
@@ -11,11 +11,11 @@ $this->title = $isEdit ? 'Update Seller: ' . $model->name : 'Create Seller';
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Nama') ?>
 
     <div class="form-group">
-        <?= Html::submitButton($isEdit ? 'Update' : 'Create', ['class' => $isEdit ? 'btn btn-primary' : 'btn btn-success']) ?>
-        <?= Html::a('Cancel', ['index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton($isEdit ? 'Ubah' : 'Simpan', ['class' => $isEdit ? 'btn btn-primary' : 'btn btn-success']) ?>
+        <?= Html::a('Batal', ['index'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

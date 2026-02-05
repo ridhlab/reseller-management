@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = $isEdit ? 'Update Daily Sold Product' : 'Create Daily Sold Product';
+$this->title = $isEdit ? 'Ubah Penjualan Harian' : 'Tambah Penjualan Harian';
 ?>
 
 <div class="daily-sold-product-form">
@@ -11,19 +11,19 @@ $this->title = $isEdit ? 'Update Daily Sold Product' : 'Create Daily Sold Produc
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'product_id')->dropDownList($products, ['prompt' => 'Select Product']) ?>
+    <?= $form->field($model, 'product_id')->dropDownList($products, ['prompt' => 'Pilih Produk'])->label('Produk') ?>
 
-    <?= $form->field($model, 'date')->textInput(['type' => 'date']) ?>
+    <?= $form->field($model, 'date')->textInput(['type' => 'date'])->label('Tanggal') ?>
 
-    <?= $form->field($model, 'stock')->textInput(['type' => 'number', 'min' => 0]) ?>
+    <?= $form->field($model, 'stock')->textInput(['type' => 'number', 'min' => 0])->label('Stok') ?>
 
     <?php if ($isEdit): ?>
-        <?= $form->field($model, 'sold')->textInput(['type' => 'number', 'min' => 0]) ?>
+        <?= $form->field($model, 'sold')->textInput(['type' => 'number', 'min' => 0])->label('Terjual') ?>
     <?php endif; ?>
 
     <div class="form-group">
-        <?= Html::submitButton($isEdit ? 'Update' : 'Create', ['class' => $isEdit ? 'btn btn-primary' : 'btn btn-success']) ?>
-        <?= Html::a('Cancel', ['index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton($isEdit ? 'Ubah' : 'Simpan', ['class' => $isEdit ? 'btn btn-primary' : 'btn btn-success']) ?>
+        <?= Html::a('Batal', ['index'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
