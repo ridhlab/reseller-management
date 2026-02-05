@@ -1,53 +1,71 @@
 <?php
 
 /** @var yii\web\View $this */
+/** @var app\models\DailySoldProduct[] $todayProducts */
 
-$this->title = 'My Yii Application';
+use yii\helpers\Html;
+
+$this->title = 'Dashboard';
 ?>
 <div class="site-index">
-
-    <div class="jumbotron text-center bg-transparent mt-5 mb-5">
-        <h1 class="display-4">Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><?= Html::encode($this->title) ?></h1>
+        <?= Html::a('<i class="bi bi-plus-circle me-2"></i> Add Stock', ['/daily-sold-product/create'], ['class' => 'btn btn-success']) ?>
     </div>
 
-    <div class="body-content">
+    <h3>Today's Products (<?= date('d M Y') ?>)</h3>
 
-        <div class="row">
-            <div class="col-lg-4 mb-3">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4 mb-3">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+    <?php if (empty($todayProducts)): ?>
+        <div class="alert alert-info">
+            No products added for today. Click "Add Stock" to add products.
         </div>
+    <?php else: ?>
+        <div class="row">
+            <?php foreach ($todayProducts as $item): ?>
+                <div class="col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= Html::encode($item->product ? $item->product->name : '-') ?></h5>
+                            <p class="card-text text-muted mb-2">
+                                <i class="bi bi-shop me-1"></i>
+                                <?= Html::encode($item->product && $item->product->seller ? $item->product->seller->name : '-') ?>
+                            </p>
+                            <p class="card-text mb-1">
+                                <i class="bi bi-calendar me-1"></i>
+                                <?= Yii::$app->formatter->asDate($item->date) ?>
+                            </p>
+                            <p class="card-text mb-1">
+                                <i class="bi bi-box me-1"></i>
+                                Stock: <strong><?= $item->stock ?></strong>
+                            </p>
+                            <p class="card-text mb-3">
+                                <i class="bi bi-cart-check me-1"></i>
+                                Sold: <strong><?= $item->sold ?></strong> / <?= $item->stock ?>
+                            </p>
 
-    </div>
+                            <?php
+                            $progress = $item->stock > 0 ? ($item->sold / $item->stock) * 100 : 0;
+                            $progressClass = $progress >= 100 ? 'bg-success' : ($progress >= 50 ? 'bg-warning' : 'bg-primary');
+                            ?>
+                            <div class="progress mb-3" style="height: 10px;">
+                                <div class="progress-bar <?= $progressClass ?>" role="progressbar" style="width: <?= $progress ?>%"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <?php if ($item->sold < $item->stock): ?>
+                                <?= Html::a('<i class="bi bi-plus-lg me-1"></i> Sell +1', ['increment-sold', 'id' => $item->id], [
+                                    'class' => 'btn btn-primary btn-sm w-100',
+                                    'data' => ['method' => 'post'],
+                                ]) ?>
+                            <?php else: ?>
+                                <button class="btn btn-secondary btn-sm w-100" disabled>
+                                    <i class="bi bi-check-lg me-1"></i> Sold Out
+                                </button>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </div>

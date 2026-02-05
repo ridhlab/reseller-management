@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\DailySoldProduct;
 
 class SiteController extends Controller
 {
@@ -61,7 +62,45 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $today = date('Y-m-d');
+        $todayProducts = DailySoldProduct::find()
+            ->with(['product', 'product.seller'])
+            ->where(['date' => $today])
+            ->all();
+
+        return $this->render('index', [
+            'todayProducts' => $todayProducts,
+        ]);
+    }
+
+    /**
+     * Increment sold for a daily sold product.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function actionIncrementSold($id)
+    {
+        $model = DailySoldProduct::findOne($id);
+
+        if ($model === null) {
+            Yii::$app->session->setFlash('error', 'Product not found.');
+            return $this->redirect(['index']);
+        }
+
+        if ($model->sold >= $model->stock) {
+            Yii::$app->session->setFlash('error', 'Cannot increment. Sold has reached stock limit.');
+            return $this->redirect(['index']);
+        }
+
+        $model->sold += 1;
+        if ($model->save(false)) {
+            Yii::$app->session->setFlash('success', 'Sold incremented successfully.');
+        } else {
+            Yii::$app->session->setFlash('error', 'Failed to increment sold.');
+        }
+
+        return $this->redirect(['index']);
     }
 
     /**

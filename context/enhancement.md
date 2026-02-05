@@ -1,0 +1,23 @@
+- List Enhancement
+  - List Product Page
+    - [x] Dropdown seller default value wording must be 'All Seller'
+  - List Daily Sold Page
+    - [x] Dropdown seller default value wording must be 'All Seller'
+    - [x] Filter date must be datepicker
+    - [x] Add validation in edit page if sold more than stock
+    - [x] Add column 'Original Price'
+    - [x] Add column 'Sell Price'
+    - [x] Add column 'Total Income Sold', value is 'sell_price' \* 'sold'
+    - [x] Add column 'Total Income Seller', value is 'original_price' \* 'sold'
+    - [x] Remove field 'Sold' in create page. But when create new daily sold product, 'sold' column must be 0
+    - [x] Add column profit, value is 'Total Income Sold' - 'Total Income Seller'
+    - [x] Add validation in create page, if product have been created in today daily_sold_product
+    - [x] Add sorting by 'Stock', 'Sold', 'Profit'
+  - Dashboard Page
+    - [x] In Dashboard page, add button to add stock, and redirect to page create daily sold products
+    - [x] Show to card daily sold product, with filtered today. Add information like, product name, seller, date, stock, and current sold. Then each card, please add button to trigger incremental of sold of this product today.
+  - [x] In label error below input, please style to red color
+  - [x] I want url for '/seller/index' => '/seller'
+  - [x] I want url for '/product/index' => '/product'
+  - [x] I want url for '/daily-sold-product/index' => '/daily-sold-product'
+  - [x] I want url for '/site/index' => '/'
